@@ -1,6 +1,8 @@
 package com.sevaslk.crudexampleapp;
 
-class Skill {
+import java.io.Serializable;
+
+class Skill implements Serializable {
     private static long countID = 0;
     private long ID;
     private String skill;
@@ -21,5 +23,9 @@ class Skill {
 
     public String getSkill() {
         return skill;
+    }
+
+    void create() {
+
     }
 }

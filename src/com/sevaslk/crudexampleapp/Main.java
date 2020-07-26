@@ -1,16 +1,19 @@
 package com.sevaslk.crudexampleapp;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 class Main {
-    public static void main(String[] args) throws FileNotFoundException {
-        SkillRepository.create("SQL");
+    public static void main(String[] args) throws IOException {
 
-        SkillRepository.create("SQL");
-        System.out.println(SkillRepository.getByID(1));
-        SkillRepository.update(1L, "PHP");
-        System.out.println(SkillRepository.getByID(1));
-        SkillRepository.deleteByID(1L);
+        System.out.println(SkillRepository.getByID(1L));
+        System.out.println(SkillRepository.getAll());
+        SkillRepository.update(3L, "AWS");
+        System.out.println(SkillRepository.getAll());
+        SkillRepository.deleteByID(2L);
+        System.out.println(SkillRepository.getAll());
+        SkillRepository.save(5L, "JS");
+        System.out.println(SkillRepository.getAll());
+
 
     }
 }

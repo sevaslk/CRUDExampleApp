@@ -1,43 +1,31 @@
 package com.sevaslk.crudexampleapp;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-class Skill implements Serializable {
-    private static long countID = 0;
+class Skill {
     private long id;
-    private String skill;
+    private String name;
 
     Skill(long id, String skill) {
         this.id = id;
-        this.skill = skill;
-    }
-
-    Skill(String skill) {
-        countID++;
-        this.id = countID;
-        this.skill = skill;
-    }
-
-    public static long getCountID() {
-        return countID;
+        this.name = skill;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getSkill() {
-        return skill;
+    public String getName() {
+        return name;
     }
 
     @Override
     public String toString() {
-        return id + "," + skill  + '/';
+        return id + "," + name + '/';
     }
 
-    public void setSkill(String skill) {
-        this.skill = skill;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -46,11 +34,11 @@ class Skill implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Skill skill1 = (Skill) o;
         return id == skill1.id &&
-                Objects.equals(skill, skill1.skill);
+                Objects.equals(name, skill1.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, skill);
+        return Objects.hash(id, name);
     }
 }

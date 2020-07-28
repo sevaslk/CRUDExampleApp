@@ -1,34 +1,30 @@
 package com.sevaslk.crudexampleapp;
 
+import java.util.List;
+
 class Developer {
     private String name;
-    private Skill skillSet;
+    private List<Skill> skill;
     private Account account;
-    private AccountStatus accountStatus;
 
-    public Developer(String name, Account account, AccountStatus accountStatus) {
+    public Developer(String name, Account account) {
         this.name = name;
         this.account = account;
-        this.accountStatus = accountStatus;
     }
 
-    public void setSkillSet(Skill skillSet) {
-        this.skillSet = skillSet;
+    public void setSkill(Skill skill) {
+        this.skill = (List<Skill>) skill;
     }
 
     public String getName() {
         return name;
     }
 
-    public Skill getSkillSet() {
-        return skillSet;
+    public Skill getSkill() {
+        return (Skill) skill;
     }
 
     public Account getAccount() {
         return account;
-    }
-
-    public AccountStatus getAccountStatus() {
-        return accountStatus;
     }
 }

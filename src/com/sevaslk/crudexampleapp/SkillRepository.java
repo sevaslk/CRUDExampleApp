@@ -1,9 +1,12 @@
 package com.sevaslk.crudexampleapp;
 
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,40 +36,51 @@ class SkillRepository {
         return skillList;
     }
 
-    public static void update(Long id, String skill) throws IOException {
-        List<Skill> skillList = new LinkedList<>();
+    public static void update(String skill) throws IOException {
+        List<Skill> skillList = new ArrayList<>();
         String files = readFile();
         String[] skillsStringArray = files.split("/");
         for (String element : skillsStringArray) {
             String[] skillItemStringArray = element.split(",");
-            if (Long.parseLong(skillItemStringArray[0]) == id) {
-                skillList.add(new Skill(Long.parseLong(skillItemStringArray[0]), skill));
-            } else {
+            if (!((skillItemStringArray[1]).equalsIgnoreCase(skill))) {
                 skillList.add(new Skill(Long.parseLong(skillItemStringArray[0]), skillItemStringArray[1]));
+            } else {
+                skillList.add(new Skill(Long.parseLong(skillItemStringArray[0]), getNewSkillName()));
             }
         }
         writeStringToFile(convertListToString(skillList));
     }
 
-    public static void save(Long id, String skill) throws IOException {
+    public static void save(String newSkill) throws IOException {
         if (Files.exists(Paths.get("C:\\Users\\s\\IdeaProjects\\CRUDExampleApp\\src\\com\\sevaslk\\crudexampleapp\\skills.txt"))) {
             List<Skill> skillList = new LinkedList<>();
             String files = readFile();
             String[] skillsStringArray = files.split("/");
             for (String element : skillsStringArray) {
                 String[] skillItemStringArray = element.split(",");
-                skillList.add(new Skill(Long.parseLong(skillItemStringArray[0]), skillItemStringArray[1]));
+                if (!skillItemStringArray[1].equalsIgnoreCase(newSkill)) {
+                    skillList.add(new Skill(Long.parseLong(skillItemStringArray[0]), skillItemStringArray[1]));
+                } else if (skillItemStringArray[1].equalsIgnoreCase(newSkill)) {
+                    System.out.println("Skill already exist.");
+                }
             }
-            skillList.add(new Skill(id, skill));
+//            for (int i = skillList.size(); i != 0; i--) {
+//                if (skillList.get(i).getId() - skillList.get(i - 1).getId() > 1) {
+//                    skillList.add(new Skill(skillList.get(i - 1).getId() - 1, newSkill));
+//                } else {
+                    skillList.add(new Skill(skillList.size() + 2L, newSkill));
+//                    break;
+//                }
+//            }
             writeStringToFile(convertListToString(skillList));
         } else {
             Files.createFile(Paths.get("C:\\Users\\s\\IdeaProjects\\CRUDExampleApp\\src\\com\\sevaslk\\crudexampleapp\\skills.txt"));
-            save(id, skill);
+            save(newSkill);
         }
     }
 
     public static void deleteByID(Long id) throws IOException {
-        List<Skill> skillList = new LinkedList<>();
+        List<Skill> skillList = new ArrayList<>();
         String files = readFile();
         String[] skillsStringArray = files.split("/");
         for (String s : skillsStringArray) {
@@ -76,6 +90,13 @@ class SkillRepository {
             }
         }
         writeStringToFile(convertListToString(skillList));
+    }
+
+    private static String getNewSkillName() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+            System.out.println("Enter new skill name:");
+            return reader.readLine();
+        }
     }
 
     private static void writeStringToFile(String string) throws IOException {
@@ -90,7 +111,7 @@ class SkillRepository {
     }
 
     private static String convertListToString(List<Skill> skills) {
-        return skills.stream().map(String::valueOf).sorted().sorted().collect(Collectors.joining());// TODO: 26.07.2020 map(String::valueOf) ???
+        return skills.stream().map(String::valueOf).sorted().collect(Collectors.joining());// TODO: 26.07.2020 map(String::valueOf) ???
     }
 
 }

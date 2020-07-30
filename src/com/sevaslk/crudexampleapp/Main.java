@@ -7,15 +7,15 @@ class Main {
 
         SkillRepository repo = new SkillRepository();
 
-//        Skill skillToUpdate = new Skill(1L, "OOP");
-//        Skill updatedSkill = repo.update(skillToUpdate);
-//        System.out.println(updatedSkill);
-//        System.out.println(repo.getAll());
-//
-//        System.out.println(repo.getByID(2));
-//
-//        repo.deleteByID(2L);
-//        System.out.println(repo.getAll());
+        Skill skillToUpdate = new Skill(2L, "OOP");
+        Skill updatedSkill = repo.update(skillToUpdate);
+        System.out.println(updatedSkill);
+        System.out.println(repo.getAll());
+
+        System.out.println(repo.getByID(3));
+
+        System.out.println("Deleted: " + repo.deleteByID(2L));
+        System.out.println(repo.getAll());
 
         Skill skillToSave = new Skill(null, "Mockito");
         repo.save(skillToSave);

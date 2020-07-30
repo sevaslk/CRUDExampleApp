@@ -12,16 +12,28 @@ import java.util.stream.Collectors;
 
 class SkillRepository {
 
+    private final String SKILLS_TXT = "C:\\Users\\s\\IdeaProjects\\CRUDExampleApp\\src\\com\\sevaslk\\crudexampleapp\\skills.txt";
+
     public Skill getByID(long id) throws IOException {
         String files = readFile();
         String[] skillsStringArray = files.split("/");
         for (String skill : skillsStringArray) {
-            String[] skillItemStringArray = skill.split(",");// TODO: 25.07.2020  не сплитуется по "." ???
+            String[] skillItemStringArray = skill.split(",");
             if (Long.parseLong(skillItemStringArray[0]) == id) {
                 return new Skill(id, skillItemStringArray[1]);
             }
         }
         throw new IOException("Skill doesn't exist.");
+    }
+
+    public Skill getByName(Skill skill) throws IOException {
+        List<Skill> skillList = getSkills();
+        for (Skill element : skillList) {
+            if (element.getName().equalsIgnoreCase(skill.getName())) {
+                return element;
+            }
+        }
+        return null;
     }
 
     public List<Skill> getAll() throws IOException {
@@ -44,13 +56,16 @@ class SkillRepository {
     }
 
     public Skill save(Skill newSkill) throws IOException {
-        if (Files.exists(Paths.get("C:\\Users\\s\\IdeaProjects\\CRUDExampleApp\\src\\com\\sevaslk\\crudexampleapp\\skills.txt"))) {
+        if (Files.exists(Paths.get(SKILLS_TXT))) {
             List<Skill> skillList = getSkills();
-            newSkill.setId(skillList.size() + 1L);
-            skillList.add(newSkill);
-            writeStringToFile(convertListToString(skillList));
+            if (getByName(newSkill) == null) {
+                skillList.add(new Skill(skillList.get(skillList.size() - 1).getId() + 1, newSkill.getName()));
+                writeStringToFile(convertListToString(skillList));
+            } else {
+                return null;
+            }
         } else {
-            Files.createFile(Paths.get("C:\\Users\\s\\IdeaProjects\\CRUDExampleApp\\src\\com\\sevaslk\\crudexampleapp\\skills.txt"));
+            Files.createFile(Paths.get(SKILLS_TXT));
             save(newSkill);
         }
         return newSkill;
@@ -58,13 +73,15 @@ class SkillRepository {
 
     public Skill deleteByID(Long id) throws IOException {
         List<Skill> skillList = getSkills();
+        Skill temp = null;
         for (int i = 0; i < skillList.size(); i++) {
             if (skillList.get(i).getId() == id) {
+                temp = skillList.get(i);
                 skillList.remove(skillList.get(i));
             }
         }
         writeStringToFile(convertListToString(skillList));
-        return null;
+        return temp;
     }
 
     private List<Skill> getSkills() throws IOException {
@@ -85,19 +102,19 @@ class SkillRepository {
         }
     }
 
-    private static void writeStringToFile(String string) throws IOException {
-        try (FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\s\\IdeaProjects\\CRUDExampleApp\\src\\com\\sevaslk\\crudexampleapp\\skills.txt");) {
+    private void writeStringToFile(String string) throws IOException {
+        try (FileOutputStream fileOutputStream = new FileOutputStream(SKILLS_TXT)) {
             byte[] strBytes = string.getBytes();
             fileOutputStream.write(strBytes);
         }
     }
 
-    private static String readFile() throws IOException {
-        return new String(Files.readAllBytes(Paths.get("C:\\Users\\s\\IdeaProjects\\CRUDExampleApp\\src\\com\\sevaslk\\crudexampleapp\\skills.txt")));
+    private String readFile() throws IOException {
+        return new String(Files.readAllBytes(Paths.get(SKILLS_TXT)));
     }
 
     private String convertListToString(List<Skill> skills) {
-        return skills.stream().map(String::valueOf).sorted().collect(Collectors.joining());// TODO: 26.07.2020 map(String::valueOf) ???
+        return skills.stream().map(String::valueOf).sorted().collect(Collectors.joining());
     }
 
 }

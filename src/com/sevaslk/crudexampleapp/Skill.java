@@ -3,12 +3,16 @@ package com.sevaslk.crudexampleapp;
 import java.util.Objects;
 
 class Skill {
-    private long id;
+    private Long id;
     private String name;
 
-    Skill(long id, String skill) {
+    Skill(Long id, String skill) {
         this.id = id;
         this.name = skill;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {

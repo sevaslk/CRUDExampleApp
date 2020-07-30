@@ -5,19 +5,21 @@ import java.io.IOException;
 class Main {
     public static void main(String[] args) throws IOException {
 
-        System.out.println(SkillRepository.getByID(1L));
-        System.out.println(SkillRepository.getAll());
+        SkillRepository repo = new SkillRepository();
 
-        SkillRepository.update("OOP");
-        System.out.println(SkillRepository.getAll());
-
-        SkillRepository.deleteByID(2L);
-        System.out.println(SkillRepository.getAll());
-        SkillRepository.save("Mockito");
-        System.out.println(SkillRepository.getAll());
+//        Skill skillToUpdate = new Skill(1L, "OOP");
+//        Skill updatedSkill = repo.update(skillToUpdate);
+//        System.out.println(updatedSkill);
+//        System.out.println(repo.getAll());
 //
-//        System.out.println(UUID.randomUUID());
-//        System.out.println(SkillRepository.getNewSkillName());
+//        System.out.println(repo.getByID(2));
+//
+//        repo.deleteByID(2L);
+//        System.out.println(repo.getAll());
+
+        Skill skillToSave = new Skill(null, "Mockito");
+        repo.save(skillToSave);
+        System.out.println(repo.getAll());
 
     }
 }

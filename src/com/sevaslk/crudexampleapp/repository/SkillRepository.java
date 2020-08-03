@@ -1,4 +1,6 @@
-package com.sevaslk.crudexampleapp;
+package com.sevaslk.crudexampleapp.repository;
+
+import com.sevaslk.crudexampleapp.model.Skill;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -10,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class SkillRepository {
+public class SkillRepository {
 
-    private final String SKILLS_TXT = "C:\\Users\\s\\IdeaProjects\\CRUDExampleApp\\src\\com\\sevaslk\\crudexampleapp\\skills.txt";
+    private final String SKILLS_TXT = "C:\\Users\\s\\IdeaProjects\\CRUDExampleApp\\src\\com\\sevaslk\\crudexampleapp\\resources\\skills.txt";
 
     public Skill getByID(long id) throws IOException {
         String files = readFile();
@@ -26,6 +28,13 @@ class SkillRepository {
         throw new IOException("Skill doesn't exist.");
     }
 
+    public Skill getByID_StreamAPI(Long id) throws IOException {
+        List<Skill> skillList = getSkills();
+        return skillList.stream()
+                .filter(skill -> skill.getId() == id)
+                .findFirst().orElse(null);
+    }
+
     public Skill getByName(Skill skill) throws IOException {
         List<Skill> skillList = getSkills();
         for (Skill element : skillList) {
@@ -34,6 +43,13 @@ class SkillRepository {
             }
         }
         return null;
+    }
+
+    public Skill getByName_StreamAPI(Skill skill) throws IOException {
+        List<Skill> skillList = getSkills();
+        return skillList.stream()
+                .filter(skillItem -> skillItem.getName().equalsIgnoreCase(skill.getName()))
+                .findFirst().orElse(null);
     }
 
     public List<Skill> getAll() throws IOException {
@@ -82,6 +98,13 @@ class SkillRepository {
         }
         writeStringToFile(convertListToString(skillList));
         return temp;
+    }
+
+    public List<Skill> deleteByID_RemoveIf(Long id) throws IOException {
+        List<Skill> skillList = getSkills();
+        skillList.removeIf(item -> item.getId() == id);
+        writeStringToFile(convertListToString(skillList));
+        return skillList;
     }
 
     private List<Skill> getSkills() throws IOException {

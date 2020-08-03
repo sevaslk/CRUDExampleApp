@@ -1,5 +1,5 @@
 package com.sevaslk.crudexampleapp;
 
-enum AccountStatus {
+public enum AccountStatus {
     ACTIVE, BANNED, DELETED
 }

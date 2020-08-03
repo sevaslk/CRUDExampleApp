@@ -1,12 +1,12 @@
-package com.sevaslk.crudexampleapp;
+package com.sevaslk.crudexampleapp.model;
 
 import java.util.Objects;
 
-class Skill {
+public class Skill {
     private Long id;
     private String name;
 
-    Skill(Long id, String skill) {
+    public Skill(Long id, String skill) {
         this.id = id;
         this.name = skill;
     }

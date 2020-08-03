@@ -1,13 +1,15 @@
-package com.sevaslk.crudexampleapp;
+package com.sevaslk.crudexampleapp.model;
 
 import java.util.List;
 
 class Developer {
+    private Long id;
     private String name;
     private List<Skill> skill;
     private Account account;
 
-    public Developer(String name, Account account) {
+    public Developer(Long id, String name, Account account) {
+        this.id = id;
         this.name = name;
         this.account = account;
     }

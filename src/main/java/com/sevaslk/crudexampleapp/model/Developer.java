@@ -1,4 +1,4 @@
-package com.sevaslk.crudexampleapp.model;
+package main.java.com.sevaslk.crudexampleapp.model;
 
 import java.util.List;
 

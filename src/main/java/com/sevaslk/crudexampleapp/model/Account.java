@@ -1,6 +1,4 @@
-package com.sevaslk.crudexampleapp.model;
-
-import com.sevaslk.crudexampleapp.AccountStatus;
+package main.java.com.sevaslk.crudexampleapp.model;
 
 class Account {
     private int id;

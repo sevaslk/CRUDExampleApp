@@ -1,4 +1,4 @@
-package com.sevaslk.crudexampleapp.model;
+package main.java.com.sevaslk.crudexampleapp.model;
 
 import java.util.Objects;
 
@@ -15,7 +15,7 @@ public class Skill {
         this.id = id;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

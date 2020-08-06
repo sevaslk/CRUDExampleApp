@@ -4,14 +4,12 @@ import main.java.com.sevaslk.crudexampleapp.model.Skill;
 import main.java.com.sevaslk.crudexampleapp.repository.SkillRepository;
 
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class JavaIOSkillRepositoryImpl implements SkillRepository {
 
@@ -46,14 +44,14 @@ public class JavaIOSkillRepositoryImpl implements SkillRepository {
         if (skillList.equals(getSkills())) {
             return null;
         }
-        writeStringToFile(convertListToString(skillList));
+        writeStringToFile(convertListToString(skillList), SKILLS_TXT);
         return newSkill;
     }
 
     public void deleteById(Long id) throws IOException {
         List<Skill> skillList = getSkills();
         skillList.removeIf(item -> item.getId().equals(id));
-        writeStringToFile(convertListToString(skillList));
+        writeStringToFile(convertListToString(skillList), SKILLS_TXT);
 
     }
 
@@ -62,7 +60,7 @@ public class JavaIOSkillRepositoryImpl implements SkillRepository {
             List<Skill> skillList = getSkills();
             if (getByName(newSkill) == null) {
                 skillList.add(new Skill(skillList.get(skillList.size() - 1).getId() + 1, newSkill.getName()));
-                writeStringToFile(convertListToString(skillList));
+                writeStringToFile(convertListToString(skillList), SKILLS_TXT);
             } else {
                 return null;
             }
@@ -75,7 +73,7 @@ public class JavaIOSkillRepositoryImpl implements SkillRepository {
 
     private List<Skill> getSkills() throws IOException {
         List<Skill> skillList = new ArrayList<>();
-        String files = readFile();
+        String files = readFile(SKILLS_TXT);
         String[] skillsStringArray = files.split("/");
         for (String element : skillsStringArray) {
             String[] skillItemStringArray = element.split(",");
@@ -89,21 +87,6 @@ public class JavaIOSkillRepositoryImpl implements SkillRepository {
             System.out.println("Enter new skill name:");
             return reader.readLine();
         }
-    }
-
-    private void writeStringToFile(String string) throws IOException {
-        try (FileOutputStream fileOutputStream = new FileOutputStream(SKILLS_TXT)) {
-            byte[] strBytes = string.getBytes();
-            fileOutputStream.write(strBytes);
-        }
-    }
-
-    private String readFile() throws IOException {
-        return new String(Files.readAllBytes(Paths.get(SKILLS_TXT)));
-    }
-
-    private String convertListToString(List<Skill> skills) {
-        return skills.stream().map(String::valueOf).sorted().collect(Collectors.joining());
     }
 
 }

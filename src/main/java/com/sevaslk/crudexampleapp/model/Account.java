@@ -1,6 +1,8 @@
 package main.java.com.sevaslk.crudexampleapp.model;
 
-class Account {
+import java.util.Objects;
+
+public class Account {
     private int id;
     private AccountStatus status;
 
@@ -16,4 +18,27 @@ class Account {
     public AccountStatus getStatus() {
         return status;
     }
+
+    public void setStatus(AccountStatus status) {
+        this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return id == account.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return id + "," + status + '/';
+    }
+
 }

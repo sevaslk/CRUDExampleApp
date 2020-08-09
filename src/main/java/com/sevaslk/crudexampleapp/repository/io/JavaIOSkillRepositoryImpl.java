@@ -3,9 +3,7 @@ package main.java.com.sevaslk.crudexampleapp.repository.io;
 import main.java.com.sevaslk.crudexampleapp.model.Skill;
 import main.java.com.sevaslk.crudexampleapp.repository.SkillRepository;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -52,7 +50,6 @@ public class JavaIOSkillRepositoryImpl implements SkillRepository {
         List<Skill> skillList = getSkills();
         skillList.removeIf(item -> item.getId().equals(id));
         writeStringToFile(convertListToString(skillList), SKILLS_TXT);
-
     }
 
     public Skill save(Skill newSkill) throws IOException {
@@ -82,12 +79,7 @@ public class JavaIOSkillRepositoryImpl implements SkillRepository {
         return skillList;
     }
 
-    private String getNewSkillName() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            System.out.println("Enter new skill name:");
-            return reader.readLine();
-        }
-    }
-
 }
+
+
 

@@ -4,9 +4,11 @@ import main.java.com.sevaslk.crudexampleapp.model.Account;
 import main.java.com.sevaslk.crudexampleapp.model.AccountStatus;
 import main.java.com.sevaslk.crudexampleapp.model.Developer;
 import main.java.com.sevaslk.crudexampleapp.model.Skill;
+import main.java.com.sevaslk.crudexampleapp.repository.SkillRepository;
 import main.java.com.sevaslk.crudexampleapp.repository.io.JavaIOAccountRepositoryImpl;
 import main.java.com.sevaslk.crudexampleapp.repository.io.JavaIODeveloperRepositoryImpl;
 import main.java.com.sevaslk.crudexampleapp.repository.io.JavaIOSkillRepositoryImpl;
+import main.java.com.sevaslk.crudexampleapp.view.SkillView;
 
 import java.io.IOException;
 
@@ -16,6 +18,7 @@ class Main {
         JavaIOSkillRepositoryImpl repoSkill = new JavaIOSkillRepositoryImpl();
         JavaIODeveloperRepositoryImpl repoDev = new JavaIODeveloperRepositoryImpl();
         JavaIOAccountRepositoryImpl repoAcc = new JavaIOAccountRepositoryImpl();
+        SkillRepository skillRepository = new JavaIOSkillRepositoryImpl();
 //
 //        System.out.println(repoSkill.update(new Skill(2L, "OOps")));
 //        System.out.println(repoSkill.getAll());
@@ -39,6 +42,14 @@ class Main {
 //        System.out.println(repoDev.getAll());
 //        System.out.println(repoAcc.save(new Account(5678, AccountStatus.ACTIVE)));
 //        System.out.println(repoAcc.getAll());
+
+        SkillView view = new SkillView();
+        view.getAll();
+        view.createSkill();
+        view.updateSkill();
+        view.findSkillByID();
+        view.deleteById();
+        view.getAll();
 
     }
 }

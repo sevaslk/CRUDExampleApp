@@ -1,4 +1,4 @@
-package main.java.com.sevaslk.crudexampleapp.model;
+package com.sevaslk.crudexampleapp.model;
 
 import java.util.Objects;
 

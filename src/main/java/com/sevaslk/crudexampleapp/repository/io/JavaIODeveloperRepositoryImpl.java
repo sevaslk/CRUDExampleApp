@@ -1,7 +1,7 @@
-package main.java.com.sevaslk.crudexampleapp.repository.io;
+package com.sevaslk.crudexampleapp.repository.io;
 
-import main.java.com.sevaslk.crudexampleapp.model.Developer;
-import main.java.com.sevaslk.crudexampleapp.repository.DeveloperRepository;
+import com.sevaslk.crudexampleapp.model.Developer;
+import com.sevaslk.crudexampleapp.repository.DeveloperRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,9 +9,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sevaslk.crudexampleapp.repository.io.JavaIOUtil.*;
+
 public class JavaIODeveloperRepositoryImpl implements DeveloperRepository {
 
-    private final String DEVELOPERS_TXT = "C:\\Users\\s\\IdeaProjects\\CRUDExampleApp\\src\\main\\resources\\developers.txt";
+    private final String DEVELOPERS_TXT = "src/main/resources/developers.txt";
 
     @Override
     public List<Developer> getAll() throws IOException {

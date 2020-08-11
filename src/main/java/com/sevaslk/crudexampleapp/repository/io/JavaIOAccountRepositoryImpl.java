@@ -1,8 +1,8 @@
-package main.java.com.sevaslk.crudexampleapp.repository.io;
+package com.sevaslk.crudexampleapp.repository.io;
 
-import main.java.com.sevaslk.crudexampleapp.model.Account;
-import main.java.com.sevaslk.crudexampleapp.model.AccountStatus;
-import main.java.com.sevaslk.crudexampleapp.repository.AccountRepository;
+import com.sevaslk.crudexampleapp.model.Account;
+import com.sevaslk.crudexampleapp.model.AccountStatus;
+import com.sevaslk.crudexampleapp.repository.AccountRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,9 +10,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sevaslk.crudexampleapp.repository.io.JavaIOUtil.*;
+
 public class JavaIOAccountRepositoryImpl implements AccountRepository {
 
-    private final String ACCOUNTS_TXT = "C:\\Users\\s\\IdeaProjects\\CRUDExampleApp\\src\\main\\resources\\accounts.txt";
+    private final String ACCOUNTS_TXT = "src/main/resources/accounts.txt";
 
     @Override
     public List<Account> getAll() throws IOException {

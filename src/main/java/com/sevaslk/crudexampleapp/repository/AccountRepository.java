@@ -1,6 +1,6 @@
-package main.java.com.sevaslk.crudexampleapp.repository;
+package com.sevaslk.crudexampleapp.repository;
 
-import main.java.com.sevaslk.crudexampleapp.model.Account;
+import com.sevaslk.crudexampleapp.model.Account;
 
 public interface AccountRepository extends GenericRepository<Account, Long> {
 

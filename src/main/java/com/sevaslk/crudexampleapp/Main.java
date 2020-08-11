@@ -1,14 +1,15 @@
-package main.java.com.sevaslk.crudexampleapp;
+package com.sevaslk.crudexampleapp;
 
-import main.java.com.sevaslk.crudexampleapp.model.Account;
-import main.java.com.sevaslk.crudexampleapp.model.AccountStatus;
-import main.java.com.sevaslk.crudexampleapp.model.Developer;
-import main.java.com.sevaslk.crudexampleapp.model.Skill;
-import main.java.com.sevaslk.crudexampleapp.repository.SkillRepository;
-import main.java.com.sevaslk.crudexampleapp.repository.io.JavaIOAccountRepositoryImpl;
-import main.java.com.sevaslk.crudexampleapp.repository.io.JavaIODeveloperRepositoryImpl;
-import main.java.com.sevaslk.crudexampleapp.repository.io.JavaIOSkillRepositoryImpl;
-import main.java.com.sevaslk.crudexampleapp.view.SkillView;
+import com.sun.prism.shader.DrawEllipse_LinearGradient_REFLECT_AlphaTest_Loader;
+import com.sevaslk.crudexampleapp.model.Account;
+import com.sevaslk.crudexampleapp.model.AccountStatus;
+import com.sevaslk.crudexampleapp.model.Developer;
+import com.sevaslk.crudexampleapp.model.Skill;
+import com.sevaslk.crudexampleapp.repository.SkillRepository;
+import com.sevaslk.crudexampleapp.repository.io.JavaIOAccountRepositoryImpl;
+import com.sevaslk.crudexampleapp.repository.io.JavaIODeveloperRepositoryImpl;
+import com.sevaslk.crudexampleapp.repository.io.JavaIOSkillRepositoryImpl;
+import com.sevaslk.crudexampleapp.view.SkillView;
 
 import java.io.IOException;
 
@@ -44,12 +45,13 @@ class Main {
 //        System.out.println(repoAcc.getAll());
 
         SkillView view = new SkillView();
-        view.getAll();
-        view.createSkill();
+//        view.getAll();
+//        view.createSkill();
+//        System.out.println(view.getNewSkillName());
         view.updateSkill();
-        view.findSkillByID();
-        view.deleteById();
-        view.getAll();
+//        view.findSkillByID();
+//        view.deleteById();
+//        view.getAll();
 
     }
 }

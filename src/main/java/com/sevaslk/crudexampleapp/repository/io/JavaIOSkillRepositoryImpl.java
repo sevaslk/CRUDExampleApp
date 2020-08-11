@@ -1,7 +1,7 @@
-package main.java.com.sevaslk.crudexampleapp.repository.io;
+package com.sevaslk.crudexampleapp.repository.io;
 
-import main.java.com.sevaslk.crudexampleapp.model.Skill;
-import main.java.com.sevaslk.crudexampleapp.repository.SkillRepository;
+import com.sevaslk.crudexampleapp.model.Skill;
+import com.sevaslk.crudexampleapp.repository.SkillRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,9 +9,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sevaslk.crudexampleapp.repository.io.JavaIOUtil.*;
+
 public class JavaIOSkillRepositoryImpl implements SkillRepository {
 
-    private final String SKILLS_TXT = "C:\\Users\\s\\IdeaProjects\\CRUDExampleApp\\src\\main\\resources\\skills.txt";
+    private final String SKILLS_TXT = "src/main/resources/skills.txt";
 
     public Skill getByName(Skill skill) throws IOException {
         List<Skill> skillList = getSkills();
@@ -56,8 +58,10 @@ public class JavaIOSkillRepositoryImpl implements SkillRepository {
         if (Files.exists(Paths.get(SKILLS_TXT))) {
             List<Skill> skillList = getSkills();
             if (getByName(newSkill) == null) {
-                skillList.add(new Skill(skillList.get(skillList.size() - 1).getId() + 1, newSkill.getName()));
+                Long generatedId = generatedId(skillList);
+                skillList.add(new Skill(generatedId, newSkill.getName()));
                 writeStringToFile(convertListToString(skillList), SKILLS_TXT);
+                newSkill.setId(generatedId);
             } else {
                 return null;
             }
@@ -66,6 +70,10 @@ public class JavaIOSkillRepositoryImpl implements SkillRepository {
             save(newSkill);
         }
         return newSkill;
+    }
+
+    private Long generatedId(List<Skill> skillList) {
+        return skillList.get(skillList.size() - 1).getId() + 1L;
     }
 
     private List<Skill> getSkills() throws IOException {

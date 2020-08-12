@@ -1,5 +1,7 @@
 package com.sevaslk.crudexampleapp;
 
+import com.sevaslk.crudexampleapp.view.AccountView;
+import com.sevaslk.crudexampleapp.view.DeveloperlView;
 import com.sun.prism.shader.DrawEllipse_LinearGradient_REFLECT_AlphaTest_Loader;
 import com.sevaslk.crudexampleapp.model.Account;
 import com.sevaslk.crudexampleapp.model.AccountStatus;
@@ -16,42 +18,28 @@ import java.io.IOException;
 class Main {
     public static void main(String[] args) throws IOException {
 
-        JavaIOSkillRepositoryImpl repoSkill = new JavaIOSkillRepositoryImpl();
-        JavaIODeveloperRepositoryImpl repoDev = new JavaIODeveloperRepositoryImpl();
-        JavaIOAccountRepositoryImpl repoAcc = new JavaIOAccountRepositoryImpl();
-        SkillRepository skillRepository = new JavaIOSkillRepositoryImpl();
-//
-//        System.out.println(repoSkill.update(new Skill(2L, "OOps")));
-//        System.out.println(repoSkill.getAll());
-//        System.out.println(repoDev.update(new Developer(2L, "Sam")));
-//        System.out.println(repoDev.getAll());
-//        System.out.println(repoAcc.update(new Account(123, AccountStatus.ACTIVE)));
-//        System.out.println(repoAcc.getAll());
-//
-//        System.out.println(repoSkill.getById(3L));
-//
-//        repoSkill.deleteById(2L);
-//        System.out.println(repoSkill.getAll());
-//        repoDev.deleteById(2L);
-//        System.out.println(repoDev.getAll());
-//        repoAcc.deleteById(123L);
-//        System.out.println(repoAcc.getAll());
-//
-//        System.out.println(repoSkill.save(new Skill(null, "Mockito")));
-//        System.out.println(repoSkill.getAll());
-//        System.out.println(repoDev.save(new Developer(null, "Anna")));
-//        System.out.println(repoDev.getAll());
-//        System.out.println(repoAcc.save(new Account(5678, AccountStatus.ACTIVE)));
-//        System.out.println(repoAcc.getAll());
+        SkillView skillView = new SkillView();
+//        skillView.getAllSkills();
+//        skillView.createSkill();
+//        skillView.updateSkill();
+//        skillView.findSkillByID();
+//        skillView.deleteSkillById();
+//        skillView.getAllSkills();
 
-        SkillView view = new SkillView();
-//        view.getAll();
-//        view.createSkill();
-//        System.out.println(view.getNewSkillName());
-        view.updateSkill();
-//        view.findSkillByID();
-//        view.deleteById();
-//        view.getAll();
+        DeveloperlView developerlView = new DeveloperlView();
+//        developerlView.getAllDevelopers();
+//        developerlView.createDeveloper();
+//        developerlView.updateDeveloper();
+//        developerlView.findDeveloperByID();
+//        developerlView.deleteDeveloperById();
+//        developerlView.getAllDevelopers();
 
+        AccountView accountView = new AccountView();
+//        accountView.getAllAccounts();
+//        accountView.createAccount();
+//        accountView.updateAccount();
+//        accountView.findAccountByID();
+//        accountView.deleteAccountById();
+//        accountView.getAllAccounts();
     }
 }

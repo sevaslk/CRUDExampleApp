@@ -33,8 +33,10 @@ public class JavaIODeveloperRepositoryImpl implements DeveloperRepository {
         if (Files.exists(Paths.get(DEVELOPERS_TXT))) {
             List<Developer> developerList = getDevelopers();
             if (developerList.stream().noneMatch(newDeveloper::equals)) {
-                developerList.add(new Developer(developerList.get(developerList.size() - 1).getId() + 1, newDeveloper.getName()));
+                Long generatedId = generatedId(developerList);
+                developerList.add(new Developer(generatedId(developerList), newDeveloper.getName()));
                 writeStringToFile(convertListToString(developerList), DEVELOPERS_TXT);
+                newDeveloper.setId(generatedId);
             } else {
                 return null;
             }
@@ -43,6 +45,10 @@ public class JavaIODeveloperRepositoryImpl implements DeveloperRepository {
             save(newDeveloper);
         }
         return newDeveloper;
+    }
+
+    private Long generatedId(List<Developer> developerList) {
+        return developerList.get(developerList.size() - 1).getId() + 1;
     }
 
     @Override

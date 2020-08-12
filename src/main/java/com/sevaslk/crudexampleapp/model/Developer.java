@@ -37,4 +37,9 @@ public class Developer {
     public String toString() {
         return id + "," + name + '/';
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 }

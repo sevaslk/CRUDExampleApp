@@ -3,15 +3,19 @@ package com.sevaslk.crudexampleapp.model;
 import java.util.Objects;
 
 public class Account {
-    private int id;
+    private Long id;
     private AccountStatus status;
 
-    public Account(int id, AccountStatus status) {
+    public Account(Long id, AccountStatus status) {
         this.id = id;
         this.status = status;
     }
 
-    public int getId() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
         return id;
     }
 
@@ -28,7 +32,7 @@ public class Account {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return id == account.id;
+        return id.equals(account.id);
     }
 
     @Override

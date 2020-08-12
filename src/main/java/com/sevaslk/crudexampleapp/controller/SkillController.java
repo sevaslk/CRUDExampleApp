@@ -22,11 +22,11 @@ public class SkillController {
         return repository.getById(id);
     }
 
-    public List<Skill> getAll() throws IOException {
+    public List<Skill> getAllSkills() throws IOException {
         return repository.getAll();
     }
 
-    public void deleteById(Long id) throws IOException {
+    public void deleteSkillById(Long id) throws IOException {
         repository.deleteById(id);
     }
 

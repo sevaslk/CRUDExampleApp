@@ -25,7 +25,7 @@ public class JavaIOAccountRepositoryImpl implements AccountRepository {
     public Account getById(Long id) throws IOException {
         List<Account> accountsList = getAccounts();
         return accountsList.stream()
-                .filter(account -> Long.valueOf(account.getId()).equals(id))
+                .filter(account -> account.getId().equals(id))
                 .findFirst().orElse(null);
     }
 
@@ -33,12 +33,11 @@ public class JavaIOAccountRepositoryImpl implements AccountRepository {
     public Account save(Account newAccount) throws IOException {
         if (Files.exists(Paths.get(ACCOUNTS_TXT))) {
             List<Account> accountsList = getAccounts();
-            if (accountsList.stream().noneMatch(newAccount::equals)) {
-                accountsList.add(new Account(accountsList.get(accountsList.size() - 1).getId() + 1, newAccount.getStatus()));
-                writeStringToFile(convertListToString(accountsList), ACCOUNTS_TXT);
-            } else {
-                return null;
-            }
+            Long generatedId = generatedId(accountsList);
+            newAccount.setId(generatedId);
+            newAccount.setStatus(AccountStatus.ACTIVE);
+            accountsList.add(newAccount);
+            writeStringToFile(convertListToString(accountsList), ACCOUNTS_TXT);
         } else {
             Files.createFile(Paths.get(ACCOUNTS_TXT));
             save(newAccount);
@@ -46,17 +45,18 @@ public class JavaIOAccountRepositoryImpl implements AccountRepository {
         return newAccount;
     }
 
+    private Long generatedId(List<Account> accountsList) {
+        return accountsList.get(accountsList.size() - 1).getId() + 1;
+    }
+
     @Override
     public Account update(Account newAccount) throws IOException {
         List<Account> accountsList = getAccounts();
         for (int i = 0; i < accountsList.size(); i++) {
             Account element = accountsList.get(i);
-            if (element.getId() == newAccount.getId()) {
+            if (element.getId().equals(newAccount.getId())) {
                 accountsList.set(i, newAccount);
             }
-        }
-        if (accountsList.equals(getAccounts())) {
-            return null;
         }
         writeStringToFile(convertListToString(accountsList), ACCOUNTS_TXT);
         return newAccount;
@@ -65,7 +65,7 @@ public class JavaIOAccountRepositoryImpl implements AccountRepository {
     @Override
     public void deleteById(Long id) throws IOException {
         List<Account> accountList = getAccounts();
-        accountList.removeIf(item -> Long.valueOf(item.getId()).equals(id));
+        accountList.removeIf(item -> item.getId().equals(id));
         writeStringToFile(convertListToString(accountList), ACCOUNTS_TXT);
     }
 
@@ -75,7 +75,7 @@ public class JavaIOAccountRepositoryImpl implements AccountRepository {
         String[] accountsStringArray = files.split("/");
         for (String element : accountsStringArray) {
             String[] accountItemStringArray = element.split(",");
-            accountList.add(new Account(Integer.parseInt(accountItemStringArray[0]), AccountStatus.valueOf(accountItemStringArray[1])));
+            accountList.add(new Account(Long.parseLong(accountItemStringArray[0]), AccountStatus.valueOf(accountItemStringArray[1])));
         }
         return accountList;
     }

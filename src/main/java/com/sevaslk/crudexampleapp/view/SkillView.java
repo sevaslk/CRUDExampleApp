@@ -19,11 +19,11 @@ public class SkillView {
     }
 
     public void updateSkill() throws IOException {
-        System.out.println("Enter ID:");
-        Long id = this.scanner.nextLong();
         System.out.println("Enter updated name:");
         String newName = this.scanner.nextLine();
-        System.out.println(controller.updateSkill(id, newName));
+        System.out.println("Enter ID:");
+        Long id = this.scanner.nextLong();
+        System.out.println(controller.updateSkill(id,newName));
     }
 
     public void findSkillByID() throws IOException {
